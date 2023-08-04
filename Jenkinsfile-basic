@@ -4,6 +4,7 @@ pipeline {
     agent any
     tools {
         maven 'my-maven'
+    }    
     stages {
         stage('build jar') {
             steps {
@@ -33,6 +34,5 @@ pipeline {
             }
         }
     }
-}
 }
 }
