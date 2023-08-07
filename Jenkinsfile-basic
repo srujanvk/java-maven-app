@@ -32,9 +32,9 @@ pipeline {
                 script {
                     echo "Building the docker image..."
                     withCredentials ([usernamePassword(credentialsId: 'sk-dockerhub-cred', passwordVariable:'PASS', usernameVariable: 'USER')]) {
-                       sh "docker build -t vsrujan/demo-app:$IMAGE_NAME ."
+                       sh "docker build -t vsrujan/demo-app:${IMAGE_NAME} ."
                        sh "echo $PASS | docker login -u $USER --password-stdin"
-                       sh "docker push vsrujan/demo-app:$IMAGE_NAME" }
+                       sh "docker push vsrujan/demo-app:${IMAGE_NAME}" }
                 }
             }
         }
