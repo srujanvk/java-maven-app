@@ -14,11 +14,10 @@ pipeline {
                     def matcher = readfile('pom.xml') =~ '<version>(.+)</version>'
                     def version = matcher[0][1]
                     env.IMAGE_NAME = "$version-$BUILD_NUMBER"
-                    echo "IMAGE_NAME: ${IMAGE_NAME}"
                 }
             }
         }
-        stage('build jar') {
+        stage('build app') {
             steps {
                 script {
                     echo "Building the application....."
@@ -44,5 +43,22 @@ pipeline {
                 }
             }
         }
+        stage('commit version update') {
+            steps {
+                script {
+                    withCredentials ([usernamePassword(credentialsId: 'sk-github-cred', passwordVariable:'PASS', usernameVariable: 'USER')])
+                        sh 'git config --global user.email "vsrujan@hotmail.com"'
+                        sh 'git config --global user.name "srujanvk"'
+
+                        sh 'git status'
+                        sh 'git branch'
+                        sh 'git config --list'
+                        sh "git remote set-url origin https://${USER}:${PASS}@github.com/srujanvk/java-maven-app.git"
+                        sh 'git add .'
+                        sh 'git commit -m "ci: version bump"'
+                        sh 'git push origin HEAD:jenkins-jobs'
+                     }
+                 }
+           }
     }
 }
