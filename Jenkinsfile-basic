@@ -47,8 +47,6 @@ pipeline {
             steps {
                 script {
                     withCredentials ([usernamePassword(credentialsId: 'sk-github-cred', passwordVariable:'PASS', usernameVariable: 'USER')]) {
-                      \\  sh 'git config --global user.email "vsrujan@hotmail.com"'
-                       \\ sh 'git config --global user.name "srujanvk"'
 
                         sh 'git status'
                         sh 'git branch'
