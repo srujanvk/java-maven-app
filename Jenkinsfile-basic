@@ -46,7 +46,7 @@ pipeline {
         stage('commit version update') {
             steps {
                 script {
-                    withCredentials ([usernamePassword(credentialsId: 'sk-github-cred', passwordVariable:'PASS', usernameVariable: 'USER')])
+                    withCredentials ([usernamePassword(credentialsId: 'sk-github-cred', passwordVariable:'PASS', usernameVariable: 'USER')]) {
                         sh 'git config --global user.email "vsrujan@hotmail.com"'
                         sh 'git config --global user.name "srujanvk"'
 
@@ -59,6 +59,7 @@ pipeline {
                         sh 'git push origin HEAD:jenkins-jobs'
                      }
                  }
-           }
+            }
+        }
     }
 }
