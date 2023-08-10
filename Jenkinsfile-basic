@@ -41,10 +41,11 @@ pipeline {
                 script {
                     env.IMAGE = "vsrujan/demo-app:${IMAGE_NAME}"
                     echo "Deploying docker image..."
-                    def dockerComposeCmd = "docker-compose -f docker-compose.yaml up --detach"
+                    def shellCmd = "bash ./server-cmds.sh"
                     sshagent(['EC2-server-key']) {
+                        sh "scp server-cmds.sh ec2-user@54.242.59.142:/home/ec2-user"
                         sh "scp docker-compose.yaml ec2-user@54.242.59.142:/home/ec2-user"
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.242.59.142 ${dockerComposeCmd}"
+                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.242.59.142 ${shellCmd}"
                     }
                 }
             }
