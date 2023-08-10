@@ -43,6 +43,7 @@ pipeline {
                     def dockerCmd = "docker run -p 8080:8080  -d ${IMAGE_NAME}"
                     sshagent(['EC2-server-key']) {
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@54.242.59.142 ${dockerCmd}"
+                    }
                 }
             }
         }
@@ -63,6 +64,5 @@ pipeline {
             }
         }
     }
-}
 }
 
