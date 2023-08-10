@@ -39,8 +39,9 @@ pipeline {
         stage('deploy') {
             steps {
                 script {
+                    env.IMAGE = "vsrujan/demo-app:${IMAGE_NAME}"
                     echo "Deploying docker image..."
-                    def dockerCmd = "docker run -p 8080:8080  -d ${IMAGE_NAME}"
+                    def dockerCmd = "docker run -p 8080:8080  -d ${IMAGE}"
                     sshagent(['EC2-server-key']) {
                         sh "ssh -o StrictHostKeyChecking=no ec2-user@54.242.59.142 ${dockerCmd}"
                     }
