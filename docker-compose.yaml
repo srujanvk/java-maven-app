@@ -1,7 +1,7 @@
 version: '3.8'
 services:
     java-maven-app:
-      image: docker pull vsrujan/demo-app:node-1.0
+      image: vsrujan/demo-app:node-1.0
       ports:
         - 8080:8080
     postgres:
