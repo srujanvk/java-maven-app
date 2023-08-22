@@ -37,15 +37,13 @@ pipeline {
             }
         }
         stage('deploy') {
+            environment {
+                AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
+                AWS_SECRET_ACCESS_KEY = credentials('jenkins_aws_secret_access_key')
             steps {
                 script {
-                    env.IMAGE = "vsrujan/demo-app:${IMAGE_NAME}"
-                    echo "Deploying docker image..."
-                    def shellCmd = "bash ./server-cmds.sh ${IMAGE}"
-                    sshagent(['EC2-server-key']) {
-                        sh "scp server-cmds.sh ec2-user@54.242.59.142:/home/ec2-user"
-                        sh "scp docker-compose.yaml ec2-user@54.242.59.142:/home/ec2-user"
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.242.59.142 ${shellCmd}"
+                    echo "deploying docker image...."
+                    
                     }
                 }
             }
