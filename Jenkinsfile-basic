@@ -18,11 +18,14 @@ pipeline {
             }
         }
         stage('deploy') {
+            environment {
+                AWS_ACCESS_KEY_ID = credentials('jenkins_aws_access_key_id')
+                AWS_SECRET_ACCESS_KEY = credentials('jenkins_aws_secret_access_key")
+            }
             steps {
                 script {
-                    def dockerCmd = 'docker run -p 3080:3080  -d vsrujan/demo-app:node-1.0'
-                    sshagent(['EC2-server-key']) {
-                        sh "ssh -o StrictHostKeyChecking=no ec2-user@54.242.59.142 ${dockerCmd}"
+                    echo "deploying docker image...."
+                    sh "kubectl create deployment nginx-deployment --image=nginx"
                     }
                 }
             }
