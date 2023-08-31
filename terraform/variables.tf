@@ -14,6 +14,10 @@ variable instance_type {
     default = "t2.micro"
 }
 
+/*variable jenkins_ip {
+    default = "137.184.15.251"
+}*/
+
 variable region {
     default = "us-east-1"
 }

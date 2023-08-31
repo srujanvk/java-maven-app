@@ -4,6 +4,12 @@ terraform {
       source = "hashicorp/aws"
       version = "5.13.0"
     }
+    backend "s3" {
+        bucket = "myapp-bucket050516"
+        key = "myapp/state.tfstate"
+        region = "us-east-1"
+        }
+    
   }
 }
 
